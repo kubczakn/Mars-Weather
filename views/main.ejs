@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+
+    <body>
+        <h1 class ="main heading">What's the weather like on Mars?</h1>
+
+      <div class="container">
+            <fieldset>
+                <form action="/" method="post">
+                    <input type="submit" name="get-Data" value="Get Weather">
+                    <% if(marsTemp !== null && marsTemp !== undefined){ %> 
+                        <p><%= intro %></p><br>
+                        <p><%= marsTemp %></p><br>
+                        <p><%= marsWind %></p><br>
+                        <p><%= marsPressure %></p>
+                    <% } %>
+                </form>
+               
+            </fieldset>
+        </div>
+    <h2> </h2>
+    </body>
+
+</html>
