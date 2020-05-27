@@ -1,6 +1,11 @@
-.main-heading{
+body {
+    text-align: center;
+}
+
+h1 .main-heading{
     display: inline;
     margin: 10px;
+    text-align: center;
 }
 
 .container {
