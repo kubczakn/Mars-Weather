@@ -3,16 +3,25 @@
     <head>
         <title>Mars Weather</title>
         <link href="/css/style.css" rel="stylesheet" type="text/css"/>
-
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
     </head>
 
     <body>
-        <h1 class ="main-heading">What's the weather like on Mars?</h1>
-
+        <h1 class ="main-heading">What's the weather like on Mars?
+            <style>
+                h1 {
+                    font-family: 'Courier New', Courier, monospace;
+                }
+            </style>
+        </h1>
+        <div class="mars-holder">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/0/02/OSIRIS_Mars_true_color.jpg" 
+            class="w3-card-4"  />
+        </div>
       <div class="container">
             <fieldset>
                 <form action="/" method="post">
-                    <input type="submit" name="get-Data" value="Get Weather">
+                    <input class="btn" type="submit" name="get-Data" value="Get Weather">
                     <% if(marsTemp !== null && marsTemp !== undefined){ %> 
                         <p><%= intro %></p><br>
                         <p><%= marsTemp %></p><br>

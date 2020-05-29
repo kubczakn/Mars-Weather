@@ -2,12 +2,31 @@ body {
     text-align: center;
 }
 
+.mars-holder {
+    width:auto;
+    display:inline-block;
+}
+
+.mars-holder img {
+    width: 25%;
+    height: auto;
+}
+
+img {
+    max-width:100%;
+    height:auto;
+}
+
 h1 .main-heading{
     display: inline;
     margin: 10px;
     text-align: center;
+    font-family: 'Courier New', Courier, monospace;
 }
+
+
 
 .container {
     margin: 10px;
+    font-family: 'Courier New', Courier, monospace;
 }
