@@ -11,15 +11,18 @@
             <style>
                 h1 {
                     font-family: 'Courier New', Courier, monospace;
+                    padding-top: 100px;
                 }
             </style>
         </h1>
-        <div class="mars-holder">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/0/02/OSIRIS_Mars_true_color.jpg" 
-            class="w3-card-4"  />
-        </div>
       <div class="container">
             <fieldset>
+                <style>
+                    fieldset {
+                        border: 0;
+                        margin-top: 20px;
+                    }
+                </style>
                 <form action="/" method="post">
                     <input class="btn" type="submit" name="get-Data" value="Get Weather">
                     <% if(marsTemp !== null && marsTemp !== undefined){ %> 
@@ -32,7 +35,15 @@
                
             </fieldset>
         </div>
-    <h2> </h2>
+    <!--
+    <div id ="compass">
+        <span>N</span>
+        <span>E</span>
+        <span>S</span>
+        <span>W</span>
+        <div id="pointer"></div>
+    </div>
+    -->
     </body>
 
 </html>
