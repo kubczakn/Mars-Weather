@@ -35,42 +35,6 @@ h1 .main-heading{
     padding-top: 40px;
 }
 
-.container .compass {
-    margin-top: 60px;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    position: relative;
-    display: inline-block;
-    border: 10px solid #777;
-    background: radial-gradient(
-        ellipse cover,
-        white,
-        #A3E2FC
-    );
-}
-
-.compass span {
-    position: absolute;
-    font-weight: bold;
-}
-
-.compass #north {
-    text-align: center;
-    left: 38px;
-}
-
-.compass #south {
-    left: 95px;
-    bottom: 20px;
-}
-
-.compass #east {
-    right: 25px;
-    top: 90px;
-}
-
-.compass #west {
-    left: 25px;
-    top: 90px;
+.container .btn {
+    margin-top: 20px;
 }

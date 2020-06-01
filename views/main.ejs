@@ -24,19 +24,22 @@
                     }
                 </style>
                 <form action="/" method="post">
+                    <label for="sol">Choose one of past seven sols:</label>
+                    <select name="sol" id="sol">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                    </select><br>
                     <input class="btn" type="submit" name="get-Data" value="Get Weather">
                     <% if(marsTemp !== null && marsTemp !== undefined){ %> 
                         <p><%= intro %></p><br>
                         <p><%= marsTemp %></p><br>
                         <p><%= marsWind %></p><br>
                         <p><%= marsPressure %></p>
-                        <div class ="compass">
-                            <span id="north">N</span>
-                            <span id="east">E</span>
-                            <span id="south">S</span>
-                            <span id="west">W</span>
-                            <div id="pointer"></div>
-                        </div>
                         
                     <% } %>
                 </form>
