@@ -29,6 +29,7 @@ async function makePostRequest() {
         solData.push(pressure);
         solData.push(windDirection);
         sols.push(solData);
+        return 0;
     }
 }
 makePostRequest();

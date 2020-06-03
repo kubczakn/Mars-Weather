@@ -4,6 +4,7 @@
         <title>Mars Weather</title>
         <link href="/css/style.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0" type:"text/javascript"></script>
     </head>
 
     <body>
@@ -26,7 +27,7 @@
                 <form action="/" method="post">
                     <label for="sol">Choose one of past seven sols:</label>
                     <select name="sol" id="sol">
-                        <option value="0">0</option>
+                        <option value="0" selected>0</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -40,7 +41,30 @@
                         <p><%= marsTemp %></p><br>
                         <p><%= marsWind %></p><br>
                         <p><%= marsPressure %></p>
-                        
+                        <div>
+                            <canvas id="testChart" width="600" height="400"></canvas>
+                            <script>
+                                var ctx = document.getElementById('testChart').getContext('2d');
+                                var chart = new Chart(ctx, {
+                                    // Type of chart we want to create
+                                    type: 'line',
+
+                                    // The data for our dataset
+                                    data: {
+                                        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                                        datasets: [{
+                                            label: 'Test dataset',
+                                            backgroundColor: 'rgb(255, 99, 132)',
+                                            borderColor: 'rgb(255, 99, 132)',
+                                            data: [0, 10, 5, 2, 20, 30, 45]
+                                        }]
+                                    },
+                                    
+                                    // Configuration options go here
+                                    options: {}
+                                });
+                            </script>
+                        </div>
                     <% } %>
                 </form>
                
