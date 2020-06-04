@@ -39,7 +39,7 @@ app.get('/', (req, res) => {
         intro : null,
         marsTemp : null,
         marsWind : null,
-        marsPressure : null 
+        marsPressure : null, 
     });
 })
 
@@ -53,7 +53,7 @@ app.post('/', (req, res) => {
         intro : introText,
         marsTemp : tempText,
         marsWind : windText,
-        marsPressure : pressureText
+        marsPressure : pressureText,
     });
 })
 

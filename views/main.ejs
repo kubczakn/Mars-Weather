@@ -37,33 +37,56 @@
                     </select><br>
                     <input class="btn" type="submit" name="get-Data" value="Get Weather">
                     <% if(marsTemp !== null && marsTemp !== undefined){ %> 
-                        <p><%= intro %></p><br>
-                        <p><%= marsTemp %></p><br>
-                        <p><%= marsWind %></p><br>
-                        <p><%= marsPressure %></p>
-                        <div>
-                            <canvas id="testChart" width="600" height="400"></canvas>
-                            <script>
-                                var ctx = document.getElementById('testChart').getContext('2d');
-                                var chart = new Chart(ctx, {
-                                    // Type of chart we want to create
-                                    type: 'line',
+                        <div id= submitContainer>
+                            <div id=test>
+                                <p><%= intro %></p><br>
+                                <p><%= marsTemp %></p><br>
+                                <p><%= marsWind %></p><br>
+                                <p><%= marsPressure %></p>
+                            </div>
+                            <div id=windChart>
+                                <canvas id="testChart" width="300" height="200"></canvas>
+                                <script>
+                                    var ctx = document.getElementById('testChart').getContext('2d');
+                                    var chart = new Chart(ctx, {
+                                        // Type of chart we want to create
+                                        type: 'line',
 
-                                    // The data for our dataset
-                                    data: {
-                                        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-                                        datasets: [{
-                                            label: 'Test dataset',
-                                            backgroundColor: 'rgb(255, 99, 132)',
-                                            borderColor: 'rgb(255, 99, 132)',
-                                            data: [0, 10, 5, 2, 20, 30, 45]
-                                        }]
-                                    },
-                                    
-                                    // Configuration options go here
-                                    options: {}
-                                });
-                            </script>
+                                        // The data for our dataset
+                                        data: {
+                                            labels: ['7', '6', '5', '4', '3', '2', '1'],
+                                            datasets: [{
+                                                label: 'Wind Speeds for Past Seven Sols',
+                                                borderColor: 'rgb(255, 255, 255)',
+                                                
+                                                data: [0, 10, 5, 2, 20, 30, 45]
+                                            }]
+                                        },
+                                        
+                                        // Configuration options go here
+                                        options: {
+                                            legend: {
+                                                labels: {
+                                                    fontColor: 'white'
+                                                }
+                                            },
+                                            scales: {
+                                                yAxes: [{
+                                                    ticks: {
+                                                        fontColor: 'white'
+                                                    }
+                                                }],
+                                                xAxes: [{
+                                                    ticks: {
+                                                        fontColor: 'white'
+                                                    }
+                                                }]
+                                            }
+
+                                        }
+                                    });
+                                </script>
+                            </div>
                         </div>
                     <% } %>
                 </form>

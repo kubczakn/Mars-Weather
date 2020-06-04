@@ -2,6 +2,7 @@ body {
     text-align: center;
     background: url(https://killzoneblog.com/wp-content/uploads/2018/12/mars.png);
     color:white;
+    background-repeat: no-repeat;
 }
 
 .mars-holder {
@@ -37,4 +38,12 @@ h1 .main-heading{
 
 .container .btn {
     margin-top: 20px;
+}
+
+#windChart {
+    float: left;
+}
+
+#text {
+    float: right'
 }
