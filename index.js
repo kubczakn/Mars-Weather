@@ -16,7 +16,7 @@ app.set('view engine', 'ejs');
 const sols = [];
 
 async function makePostRequest() {
-    for (i = 0; i < 7; ++i) {
+    for (i = 6; i >= 0; --i) {
         var solData = [];
         var res = await axios.post(url);
         var sol = res.data.sol_keys[i];
@@ -29,7 +29,7 @@ async function makePostRequest() {
         solData.push(pressure);
         solData.push(windDirection);
         sols.push(solData);
-        return 0;
+        
     }
 }
 makePostRequest();
@@ -39,21 +39,29 @@ app.get('/', (req, res) => {
         intro : null,
         marsTemp : null,
         marsWind : null,
-        marsPressure : null, 
+        marsPressure : null,
+        tempData : null 
     });
 })
 
 app.post('/', (req, res) => {
+    var tempData = [];
+    for (i = 0; i != sols.length; ++i) {
+        tempData.push(sols[i][0];
+    }
     let chosenSol = req.body.sol;
     let introText = "Here's the weather on Mars's equator for this sol:"
     let tempText  = `It is ${sols[chosenSol][0]} degrees Fahrenheit.`;
     let windText = `The wind is blowing at a speed of ${sols[chosenSol][1]} m/s due ${sols[chosenSol][3]}.`;
     let pressureText = `Air pressure is roughly ${sols[chosenSol][2]} Pascals.`
+    console.log(sols);
+    console.log(tempData);
     res.render('main', {
         intro : introText,
         marsTemp : tempText,
         marsWind : windText,
         marsPressure : pressureText,
+        tempData : tempData
     });
 })
 

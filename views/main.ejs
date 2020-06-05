@@ -38,16 +38,16 @@
                     <input class="btn" type="submit" name="get-Data" value="Get Weather">
                     <% if(marsTemp !== null && marsTemp !== undefined){ %> 
                         <div id= submitContainer>
-                            <div id=test>
+                            <div id=text>
                                 <p><%= intro %></p><br>
                                 <p><%= marsTemp %></p><br>
                                 <p><%= marsWind %></p><br>
                                 <p><%= marsPressure %></p>
                             </div>
                             <div id=windChart>
-                                <canvas id="testChart" width="300" height="200"></canvas>
+                                <canvas id="tempChart" width="300" height="200"></canvas>
                                 <script>
-                                    var ctx = document.getElementById('testChart').getContext('2d');
+                                    var ctx = document.getElementById('tempChart').getContext('2d');
                                     var chart = new Chart(ctx, {
                                         // Type of chart we want to create
                                         type: 'line',
@@ -56,10 +56,10 @@
                                         data: {
                                             labels: ['7', '6', '5', '4', '3', '2', '1'],
                                             datasets: [{
-                                                label: 'Wind Speeds for Past Seven Sols',
+                                                label: 'Temperatures for Past Seven Sols',
                                                 borderColor: 'rgb(255, 255, 255)',
                                                 
-                                                data: [0, 10, 5, 2, 20, 30, 45]
+                                                data: [0, 10, 5, 2, 20, 30, tempData[0]]
                                             }]
                                         },
                                         

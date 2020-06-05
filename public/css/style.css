@@ -40,10 +40,17 @@ h1 .main-heading{
     margin-top: 20px;
 }
 
-#windChart {
-    float: left;
+#submitContainer {
+    text-align: center;
 }
 
 #text {
-    float: right'
+    width: 50%;
+    float: right;
+}
+
+#windChart {
+    width: 50%;
+    float: left;
+    padding-top: 20px;
 }
