@@ -47,15 +47,13 @@ app.get('/', (req, res) => {
 app.post('/', (req, res) => {
     var tempData = [];
     for (i = 0; i != sols.length; ++i) {
-        tempData.push(sols[i][0];
+        tempData.push(sols[i][0]);
     }
     let chosenSol = req.body.sol;
     let introText = "Here's the weather on Mars's equator for this sol:"
     let tempText  = `It is ${sols[chosenSol][0]} degrees Fahrenheit.`;
     let windText = `The wind is blowing at a speed of ${sols[chosenSol][1]} m/s due ${sols[chosenSol][3]}.`;
-    let pressureText = `Air pressure is roughly ${sols[chosenSol][2]} Pascals.`
-    console.log(sols);
-    console.log(tempData);
+    let pressureText = `Air pressure is roughly ${sols[chosenSol][2]} Pascals.`;
     res.render('main', {
         intro : introText,
         marsTemp : tempText,
