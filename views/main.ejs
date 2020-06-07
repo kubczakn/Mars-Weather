@@ -25,7 +25,7 @@
                     }
                 </style>
                 <form action="/" method="post">
-                    <label for="sol">Choose one of past seven sols:</label>
+                    <label for="sol">Choose one of past seven sols or Martian days:</label>
                     <select name="sol" id="sol">
                         <option value="0" selected>0</option>
                         <option value="1">1</option>
@@ -39,10 +39,18 @@
                     <% if(marsTemp !== null && marsTemp !== undefined){ %> 
                         <div id= submitContainer>
                             <div id=text>
-                                <p><%= intro %></p><br>
-                                <p><%= marsTemp %></p><br>
-                                <p><%= marsWind %></p><br>
-                                <p><%= marsPressure %></p>
+                                <div class="box">
+                                    <p><%= intro %></p><br>
+                                </div>
+                                <div class = "box">
+                                    <p><%= marsTemp %></p><br>
+                                </div>
+                                <div class = "box">
+                                    <p><%= marsWind %></p><br>
+                                </div>
+                                <div class = "box">
+                                    <p><%= marsPressure %></p><br>
+                                </div>
                             </div>
                             <div id=windChart>
                                 <canvas id="tempChart" width="300" height="200"></canvas>
@@ -59,7 +67,8 @@
                                                 label: 'Temperatures for Past Seven Sols',
                                                 borderColor: 'rgb(255, 255, 255)',
                                                 
-                                                data: [0, 10, 5, 2, 20, "<%= tempData[1] %>", "<%= tempData[0] %>"]
+                                                data: ["<%= tempData[6] %>", "<%= tempData[5] %>", "<%= tempData[4] %>", "<%= tempData[3] %>", 
+                                                "<%= tempData[2] %>", "<%= tempData[1] %>", "<%= tempData[0] %>"]
                                             }]
                                         },
                                         
