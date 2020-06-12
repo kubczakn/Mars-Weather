@@ -14,6 +14,19 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 
 const sols = [];
+const week = [];
+
+function addDates() {
+    var current_date = new Date();
+    var current_month = current_date.getMonth();
+    var current_day = current_date.getDate();
+    var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
+    "Aug", "Sep", "Oct", "Nov", "Dec"];
+    for (j = 0; j < 7; ++j) {
+        var date = months[current_month] + ' ' + (current_day - j);
+        week.push(date);
+    }
+}
 
 async function makePostRequest() {
     for (i = 6; i >= 0; --i) {
@@ -29,10 +42,10 @@ async function makePostRequest() {
         solData.push(pressure);
         solData.push(windDirection);
         sols.push(solData);
-        
     }
 }
 makePostRequest();
+addDates();
 
 app.get('/', (req, res) => {
     res.render('main', {
@@ -40,7 +53,8 @@ app.get('/', (req, res) => {
         marsTemp : null,
         marsWind : null,
         marsPressure : null,
-        tempData : null 
+        tempData : null, 
+        week : week
     });
 })
 
@@ -50,7 +64,7 @@ app.post('/', (req, res) => {
         tempData.push(sols[i][0]);
     }
     let chosenSol = req.body.sol;
-    let introText = "Here's the weather on Mars's equator for this sol:"
+    let introText = "Here's the weather on Mars's equator for this sol or Martian day:"
     let tempText  = `It is ${sols[chosenSol][0]} degrees Fahrenheit.`;
     let windText = `The wind is blowing at a speed of ${sols[chosenSol][1]} m/s due ${sols[chosenSol][3]}.`;
     let pressureText = `Air pressure is roughly ${sols[chosenSol][2]} Pascals.`;
@@ -59,7 +73,8 @@ app.post('/', (req, res) => {
         marsTemp : tempText,
         marsWind : windText,
         marsPressure : pressureText,
-        tempData : tempData
+        tempData : tempData,
+        week : week
     });
 })
 

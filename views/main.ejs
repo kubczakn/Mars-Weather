@@ -25,15 +25,15 @@
                     }
                 </style>
                 <form action="/" method="post">
-                    <label for="sol">Choose one of past seven sols or Martian days:</label>
+                    <label for="sol">Please select a day:</label>
                     <select name="sol" id="sol">
-                        <option value="0" selected>0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
+                        <option value="0" selected><%= week[0] %></option>
+                        <option value="1"><%= week[1] %></option>
+                        <option value="2"><%= week[2] %></option>
+                        <option value="3"><%= week[3] %></option>
+                        <option value="4"><%= week[4] %></option>
+                        <option value="5"><%= week[5] %></option>
+                        <option value="6"><%= week[6] %></option>
                     </select><br>
                     <input class="btn" type="submit" name="get-Data" value="Get Weather">
                     <% if(marsTemp !== null && marsTemp !== undefined){ %> 
@@ -62,7 +62,8 @@
 
                                         // The data for our dataset
                                         data: {
-                                            labels: ['7', '6', '5', '4', '3', '2', '1'],
+                                            labels: ["<%= week[6] %>", "<%= week[5] %>", "<%= week[4] %>", "<%= week[3] %>", 
+                                                    "<%= week[2] %>", "<%= week[1] %>", "<%= week[0] %>"],
                                             datasets: [{
                                                 label: 'Temperatures for Past Seven Sols',
                                                 borderColor: 'rgb(255, 255, 255)',
