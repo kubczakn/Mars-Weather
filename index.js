@@ -47,11 +47,15 @@ async function makePostRequest() {
         var res = await axios.post(url);
         var sol = res.data.sol_keys[i];
         sol_keys.push(sol);
-        var temp = res.data[sol].AT.av;
+        var average_temp = res.data[sol].AT.av;
+        var high_temp = res.data[sol].AT.mx;
+        var low_temp = res.data[sol].AT.mn;
         var windSpeed = res.data[sol].HWS.av;
         var pressure = res.data[sol].PRE.av;
         var windDirection = res.data[sol].WD[2].compass_point;
-        solData.push(temp);
+        solData.push(high_temp);
+        solData.push(low_temp);
+        solData.push(average_temp);
         solData.push(windSpeed);
         solData.push(pressure);
         solData.push(windDirection);
@@ -75,13 +79,13 @@ app.get('/', (req, res) => {
 app.post('/', (req, res) => {
     var tempData = [];
     for (i = 0; i != sols.length; ++i) {
-        tempData.push(sols[i][0]);
+        tempData.push(sols[i][2]);
     }
     let chosenSol = req.body.sol;
     let introText = `Here's the weather on Mars's equator for Sol ${sol_keys[chosenSol]} or ${week[req.body.sol]}`;
-    let tempText  = `It is ${sols[chosenSol][0]} degrees Fahrenheit.`;
-    let windText = `The wind is blowing at a speed of ${sols[chosenSol][1]} m/s due ${sols[chosenSol][3]}.`;
-    let pressureText = `Air pressure is roughly ${sols[chosenSol][2]} Pascals.`;
+    let tempText  = `High of ${sols[chosenSol][0]} degrees Fahrenheit. Low of ${sols[chosenSol][1]} degrees Fahrenheit`;
+    let windText = `The wind is blowing at a speed of ${sols[chosenSol][3]} m/s due ${sols[chosenSol][5]}.`;
+    let pressureText = `Air pressure is roughly ${sols[chosenSol][4]} Pascals.`;
     res.render('main', {
         intro : introText,
         marsTemp : tempText,
