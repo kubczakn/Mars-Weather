@@ -15,6 +15,7 @@ app.set('view engine', 'ejs');
 
 const sols = [];
 const week = [];
+const sol_keys = [];
 
 function addDates() {
     var current_date = new Date();
@@ -22,9 +23,21 @@ function addDates() {
     var current_day = current_date.getDate();
     var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
     "Aug", "Sep", "Oct", "Nov", "Dec"];
+    var date;
     for (j = 0; j < 7; ++j) {
-        var date = months[current_month] + ' ' + (current_day - j);
-        week.push(date);
+        if ((current_day - j) <= 0 ) {
+            if ((current_month - 1) % 2 == 0) {
+                date = months[current_month - 1] + ' ' (31 + (current_day - j));
+            }
+            else {
+                date = months[current_month - 1] + ' ' (30 + (current_day - j));
+            }
+        }
+        else {
+            date = months[current_month] + ' ' + (current_day - j);
+            week.push(date);
+        }
+       
     }
 }
 
@@ -33,6 +46,7 @@ async function makePostRequest() {
         var solData = [];
         var res = await axios.post(url);
         var sol = res.data.sol_keys[i];
+        sol_keys.push(sol);
         var temp = res.data[sol].AT.av;
         var windSpeed = res.data[sol].HWS.av;
         var pressure = res.data[sol].PRE.av;
@@ -64,7 +78,7 @@ app.post('/', (req, res) => {
         tempData.push(sols[i][0]);
     }
     let chosenSol = req.body.sol;
-    let introText = "Here's the weather on Mars's equator for this sol or Martian day:"
+    let introText = `Here's the weather on Mars's equator for Sol ${sol_keys[chosenSol]} or ${week[req.body.sol]}`;
     let tempText  = `It is ${sols[chosenSol][0]} degrees Fahrenheit.`;
     let windText = `The wind is blowing at a speed of ${sols[chosenSol][1]} m/s due ${sols[chosenSol][3]}.`;
     let pressureText = `Air pressure is roughly ${sols[chosenSol][2]} Pascals.`;
