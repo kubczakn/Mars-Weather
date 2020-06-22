@@ -53,14 +53,17 @@ async function makePostRequest() {
         var windSpeed = res.data[sol].HWS.av;
         var pressure = res.data[sol].PRE.av;
         var windDirection = res.data[sol].WD[2].compass_point;
-        solData.push(high_temp);
-        solData.push(low_temp);
-        solData.push(average_temp);
-        solData.push(windSpeed);
-        solData.push(pressure);
-        solData.push(windDirection);
+        solData.push(Math.round(high_temp));
+        solData.push(Math.round(low_temp));
+        solData.push(Math.round(average_temp));
+        solData.push(Math.round(windSpeed));
+        solData.push(Math.round(pressure));
+        solData.push(Math.round(windDirection));
+        solData.push(Math.round(average_temp));
         sols.push(solData);
+        
     }
+    
 }
 makePostRequest();
 addDates();
@@ -83,9 +86,9 @@ app.post('/', (req, res) => {
     }
     let chosenSol = req.body.sol;
     let introText = `Here's the weather on Mars's equator for Sol ${sol_keys[chosenSol]} or ${week[req.body.sol]}`;
-    let tempText  = `High of ${sols[chosenSol][0]} degrees Fahrenheit. Low of ${sols[chosenSol][1]} degrees Fahrenheit`;
-    let windText = `The wind is blowing at a speed of ${sols[chosenSol][3]} m/s due ${sols[chosenSol][5]}.`;
-    let pressureText = `Air pressure is roughly ${sols[chosenSol][4]} Pascals.`;
+    let tempText  = `High of ${sols[chosenSol][0]} degrees Fahrenheit.\n Low of ${sols[chosenSol][1]} degrees Fahrenheit.\n Avg of ${sols[chosenSol][6]} degrees Fahrenheit. `;
+    let windText = `The wind is blowing on average at a speed of ${sols[chosenSol][3]} m/s due ${sols[chosenSol][5]}.`;
+    let pressureText = `Air pressure is on average ${sols[chosenSol][4]} Pascals.`;
     res.render('main', {
         intro : introText,
         marsTemp : tempText,
