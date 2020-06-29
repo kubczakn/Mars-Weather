@@ -35,16 +35,23 @@
                         <option value="5"><%= week[5] %></option>
                         <option value="6"><%= week[6] %></option>
                     </select><br>
+                    <input type="radio" id="fahrenheit" name="f" value="1">
+                        <label for='fahrenheit'>Fahrenheit</label>
+                    <input type='radio' id='celsius' name='c' value='2'>
+                        <label for='celsius'>Celsius</label>                    
                     <input class="btn" type="submit" name="get-Data" value="Get Weather">
-                    <% if(marsTemp !== null && marsTemp !== undefined){ %> 
+                    <% if(intro !== null && intro !== null){ %> 
                         <div id= submitContainer>
                             <div id=text>
                                 <div class="box">
                                     <p><%= intro %></p><br>
                                 </div>
+
                                 <div class = "box">
-                                    <p><%= marsTemp %></p><br>
-                                </div>
+                                    <p id="temp"> <%= marsTemp%></p><br>
+                                </div> 
+                
+
                                 <div class = "box">
                                     <p><%= marsWind %></p><br>
                                 </div>
@@ -52,6 +59,7 @@
                                     <p><%= marsPressure %></p><br>
                                 </div>
                             </div>
+                           
                             <div id=windChart>
                                 <canvas id="tempChart" width="300" height="200"></canvas>
                                 <script>

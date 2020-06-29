@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const axios = require('axios').default;
 const bodyParser = require('body-parser');
+const { request } = require('express');
 
 const apiKey = 'MbmiM3rQcY20x4HTBDEXzg6ecDMsjOULRMf8IKJS';
 
@@ -52,13 +53,13 @@ async function makePostRequest() {
         var low_temp = res.data[sol].AT.mn;
         var windSpeed = res.data[sol].HWS.av;
         var pressure = res.data[sol].PRE.av;
-        var windDirection = res.data[sol].WD[2].compass_point;
+        var windDirection = res.data[sol].WD.most_common.compass_point;
         solData.push(Math.round(high_temp));
         solData.push(Math.round(low_temp));
         solData.push(Math.round(average_temp));
         solData.push(Math.round(windSpeed));
         solData.push(Math.round(pressure));
-        solData.push(Math.round(windDirection));
+        solData.push((windDirection));
         solData.push(Math.round(average_temp));
         sols.push(solData);
         
@@ -71,6 +72,8 @@ addDates();
 app.get('/', (req, res) => {
     res.render('main', {
         intro : null,
+        fahrenehit : null,
+        celsius : null,
         marsTemp : null,
         marsWind : null,
         marsPressure : null,
@@ -80,18 +83,29 @@ app.get('/', (req, res) => {
 })
 
 app.post('/', (req, res) => {
+    var marsTemp;
+    const request = req.body;
     var tempData = [];
     for (i = 0; i != sols.length; ++i) {
         tempData.push(sols[i][2]);
     }
     let chosenSol = req.body.sol;
     let introText = `Here's the weather on Mars's equator for Sol ${sol_keys[chosenSol]} or ${week[req.body.sol]}`;
-    let tempText  = `High of ${sols[chosenSol][0]} degrees Fahrenheit.\n Low of ${sols[chosenSol][1]} degrees Fahrenheit.\n Avg of ${sols[chosenSol][6]} degrees Fahrenheit. `;
+    if (request.f == 1) {
+        marsTemp = `High of ${sols[chosenSol][0]} degrees Fahrenheit. Low of ${sols[chosenSol][1]} degrees Fahrenheit. Avg of ${sols[chosenSol][6]} degrees Fahrenheit. `;
+    }
+    else {
+        marsTemp = `High of ${sols[chosenSol][0] - 32} degrees Celsius. Low of ${sols[chosenSol][1] - 32} degrees Celsius. Avg of ${sols[chosenSol][6] - 32} degrees Celsius. `;
+    }
+    let tempFahrenheit  = `High of ${sols[chosenSol][0]} degrees Fahrenheit. Low of ${sols[chosenSol][1]} degrees Fahrenheit. Avg of ${sols[chosenSol][6]} degrees Fahrenheit. `;
+    let tempCelsius  = `High of ${sols[chosenSol][0] - 32} degrees Celsius. Low of ${sols[chosenSol][1] - 32} degrees Celsius. Avg of ${sols[chosenSol][6] - 32} degrees Celsius. `;
     let windText = `The wind is blowing on average at a speed of ${sols[chosenSol][3]} m/s due ${sols[chosenSol][5]}.`;
     let pressureText = `Air pressure is on average ${sols[chosenSol][4]} Pascals.`;
     res.render('main', {
         intro : introText,
-        marsTemp : tempText,
+        fahrenheit : tempFahrenheit,
+        celsius : tempCelsius,
+        marsTemp : marsTemp,
         marsWind : windText,
         marsPressure : pressureText,
         tempData : tempData,
