@@ -28,10 +28,12 @@ function addDates() {
     for (j = 0; j < 7; ++j) {
         if ((current_day - j) <= 0 ) {
             if ((current_month - 1) % 2 == 0) {
-                date = months[current_month - 1] + ' ' (31 + (current_day - j));
+                date = months[current_month - 1] + ' ' + (31 + (current_day - j));
+                week.push(date);
             }
             else {
-                date = months[current_month - 1] + ' ' (30 + (current_day - j));
+                date = months[current_month - 1] + ' ' + (30 + (current_day - j));
+                week.push(date);
             }
         }
         else {
@@ -78,24 +80,32 @@ app.get('/', (req, res) => {
         marsWind : null,
         marsPressure : null,
         tempData : null, 
-        week : week
+        week : week,
+        yAxes : null
     });
 })
 
 app.post('/', (req, res) => {
     var marsTemp;
+    var yAxes;
     const request = req.body;
     var tempData = [];
-    for (i = 0; i != sols.length; ++i) {
-        tempData.push(sols[i][2]);
-    }
+    
     let chosenSol = req.body.sol;
     let introText = `Here's the weather on Mars's equator for Sol ${sol_keys[chosenSol]} or ${week[req.body.sol]}`;
     if (request.f == 1) {
         marsTemp = `High of ${sols[chosenSol][0]} degrees Fahrenheit. Low of ${sols[chosenSol][1]} degrees Fahrenheit. Avg of ${sols[chosenSol][6]} degrees Fahrenheit. `;
+        for (i = 0; i != sols.length; ++i) {
+            tempData.push(sols[i][2]);
+            yAxes = 'Degrees Fahrenheit'
+        }
     }
     else {
         marsTemp = `High of ${sols[chosenSol][0] - 32} degrees Celsius. Low of ${sols[chosenSol][1] - 32} degrees Celsius. Avg of ${sols[chosenSol][6] - 32} degrees Celsius. `;
+        for (i = 0; i != sols.length; ++i) {
+            tempData.push(sols[i][2] - 32);
+            yAxes = 'Degrees Celsius';
+        }
     }
     let tempFahrenheit  = `High of ${sols[chosenSol][0]} degrees Fahrenheit. Low of ${sols[chosenSol][1]} degrees Fahrenheit. Avg of ${sols[chosenSol][6]} degrees Fahrenheit. `;
     let tempCelsius  = `High of ${sols[chosenSol][0] - 32} degrees Celsius. Low of ${sols[chosenSol][1] - 32} degrees Celsius. Avg of ${sols[chosenSol][6] - 32} degrees Celsius. `;
@@ -109,7 +119,8 @@ app.post('/', (req, res) => {
         marsWind : windText,
         marsPressure : pressureText,
         tempData : tempData,
-        week : week
+        week : week,
+        yAxes : yAxes
     });
 })
 
