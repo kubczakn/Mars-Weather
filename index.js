@@ -4,6 +4,17 @@ const app = express();
 const axios = require('axios').default;
 const bodyParser = require('body-parser');
 const { request } = require('express');
+const mysql = require('mysql');
+const con = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "Jghs121410"
+});
+
+con.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected");
+});
 
 const apiKey = 'MbmiM3rQcY20x4HTBDEXzg6ecDMsjOULRMf8IKJS';
 
@@ -92,6 +103,7 @@ app.post('/', (req, res) => {
     var tempData = [];
     
     let chosenSol = req.body.sol;
+    console.log(chosenSol);
     let introText = `Here's the weather on Mars's equator for Sol ${sol_keys[chosenSol]} or ${week[req.body.sol]}`;
     if (request.f == 1) {
         marsTemp = `High of ${sols[chosenSol][0]} degrees Fahrenheit. Low of ${sols[chosenSol][1]} degrees Fahrenheit. Avg of ${sols[chosenSol][6]} degrees Fahrenheit. `;
