@@ -139,7 +139,7 @@ app.post('/', (req, res) => {
     let chosenSol = req.body.sol;
     
     var time = new Date().getHours();
-    if (time >= 4 && time < 5 ) {
+    if (time >= 16 && time < 17 ) {
         con.connect(function(err) {
             if (err) throw err;
             console.log("Connected");
