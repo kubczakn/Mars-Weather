@@ -24,7 +24,7 @@
                         margin-top: 20px;
                     }
                 </style>
-                <form action="/" method="post">
+                <form name='postForm' id='postForm' action="/" method="post">
                     <label for="sol">Please select a day:</label>
                     <select name="sol" id="sol">
                         <option value="0" selected><%= week[0] %></option>
@@ -39,7 +39,7 @@
                         <label for='fahrenheit'>Fahrenheit</label>
                     <input type='radio' id='celsius' name='c' value='2'>
                         <label for='celsius'>Celsius</label>                    
-                    <input class="btn" type="submit" name="get-Data" value="Get Weather">
+                    <input class="btn" type="submit" id='submit_btn' name="submit_btn" value="Get Weather">
                     <% if(intro !== null && intro !== null){ %> 
                         <div id= submitContainer>
                             <div id=text>
@@ -59,7 +59,7 @@
                                     <p><%= marsPressure %></p><br>
                                 </div>
                             </div>
-                           
+                            
                             <div id=windChart>
                                 <canvas id="tempChart" width="300" height="200"></canvas>
                                 <script>
@@ -121,7 +121,14 @@
                
             </fieldset>
         </div>
-    
+       <script>
+           var interval = 1000 * 60 * 60 * 24;
+           function update_sql() {
+                var btn = document.getElementById('submit_btn');
+                btn.click();
+           }
+           setInterval(update_sql, interval);
+       </script>
     
     
     </body>

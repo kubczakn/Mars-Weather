@@ -4,17 +4,21 @@ const app = express();
 const axios = require('axios').default;
 const bodyParser = require('body-parser');
 const { request } = require('express');
+const schedule = require('node-schedule');
+
 const mysql = require('mysql');
 const con = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "Jghs121410"
+    password: "Jghs121410",
+   // database : "tempdb"
+   database : "tempdb"
 });
 
-con.connect(function(err) {
-    if (err) throw err;
-    console.log("Connected");
-});
+
+
+
+
 
 const apiKey = 'MbmiM3rQcY20x4HTBDEXzg6ecDMsjOULRMf8IKJS';
 
@@ -77,8 +81,11 @@ async function makePostRequest() {
         sols.push(solData);
         
     }
-    
 }
+
+
+
+
 makePostRequest();
 addDates();
 
@@ -96,14 +103,58 @@ app.get('/', (req, res) => {
     });
 })
 
+/*
+con.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected");
+    con.query("SELECT * FROM temps_celsius", function (err, result, fields) {
+        if (err) throw err;
+        console.log(result);
+    });
+});
+/*
+
+/*
+con.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected");
+    var sql = "DELETE FROM temps_celsius WHERE date = 'Jul 24'";
+    con.query(sql, function (err, result) {
+        if (err) throw err;
+        console.log('Deleted');
+    });
+});
+*/
+
+
 app.post('/', (req, res) => {
+
+    
+    
     var marsTemp;
     var yAxes;
     const request = req.body;
     var tempData = [];
     
     let chosenSol = req.body.sol;
-    console.log(chosenSol);
+    
+    var time = new Date().getHours();
+    if (time >= 0 && time < 23 ) {
+        con.connect(function(err) {
+            if (err) throw err;
+            console.log("Connected");
+            var sql = "INSERT INTO temps_celsius (date, temp) VALUES ?";
+            var values = [
+                [week[0], sols[0][2] - 32]
+            ];
+            con.query(sql, [values], function (err, result) {
+                if (err) throw err;
+                console.log('Inserted data')
+            }); 
+        });
+    }
+    console.log('Test');
+    
     let introText = `Here's the weather on Mars's equator for Sol ${sol_keys[chosenSol]} or ${week[req.body.sol]}`;
     if (request.f == 1) {
         marsTemp = `High of ${sols[chosenSol][0]} degrees Fahrenheit. Low of ${sols[chosenSol][1]} degrees Fahrenheit. Avg of ${sols[chosenSol][6]} degrees Fahrenheit. `;
@@ -134,7 +185,11 @@ app.post('/', (req, res) => {
         week : week,
         yAxes : yAxes
     });
+
+    
 })
+
+
 
 // POST Environment Varaible
 const port = process.env.PORT || 3000;
