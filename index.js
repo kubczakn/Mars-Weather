@@ -112,13 +112,13 @@ con.connect(function(err) {
         console.log(result);
     });
 });
-/*
+*/
 
 /*
 con.connect(function(err) {
     if (err) throw err;
     console.log("Connected");
-    var sql = "DELETE FROM temps_celsius WHERE date = 'Jul 24'";
+    var sql = "DELETE FROM temps_celsius WHERE date = 'Jul 26'";
     con.query(sql, function (err, result) {
         if (err) throw err;
         console.log('Deleted');
@@ -139,7 +139,7 @@ app.post('/', (req, res) => {
     let chosenSol = req.body.sol;
     
     var time = new Date().getHours();
-    if (time >= 16 && time < 17 ) {
+    if (time >= 0 && time < 1 ) {
         con.connect(function(err) {
             if (err) throw err;
             console.log("Connected");
@@ -153,7 +153,6 @@ app.post('/', (req, res) => {
             }); 
         });
     }
-    console.log('Test');
     
     let introText = `Here's the weather on Mars's equator for Sol ${sol_keys[chosenSol]} or ${week[req.body.sol]}`;
     if (request.f == 1) {
